@@ -67,6 +67,7 @@
           <input
             v-model="remarkSearchText"
             :placeholder="`Search ${remarkType}`"
+            @click="showAll()"
             class="remark-search-input form-control"
             type="text"
           >
@@ -133,7 +134,7 @@ export default {
   watch: {
     remarkSearchText(val) {
       if (!val) {
-        this.filteredRemarks = [];
+        this.filteredRemarks = this.remarks;
         return;
       }
       const searchPhrases = val.split(' ');
@@ -156,6 +157,9 @@ export default {
       'removeRemark',
       'incrementRemark',
     ]),
+    showAll() {
+      this.filteredRemarks = this.remarks;
+    },
     addListeners() {
       this.bodyListener();
       this.categoryListener();
