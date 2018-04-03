@@ -3,15 +3,19 @@ from django.http import JsonResponse
 from django.views import View
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route
+import logging
 
 from remarks.models import Comment, Critique, GeneralComment
 from remarks.serializers import (CommentSerializer, CritiqueSerializer,
                                  GeneralCommentSerializer)
 from urplus.udacity import CRITIQUES_URL, RUBRICS_URL, SUBMISSIONS_URL
 
+logger = logging.getLogger(__name__)
+
 
 class SubmissionInfoView(View):
     def get(self, request):
+        logger.info('aqui')
         sub_response = requests.get(
             SUBMISSIONS_URL.format(request.GET['submission_id']),
             headers=request.udacity_headers,

@@ -66,6 +66,7 @@ export function getIncome(axiosInstance) {
   const now = new Date();
   const todayStart = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
   const monthStart = new Date(now.getUTCFullYear(), now.getUTCMonth(), 1);
+  const dateStart = now.getDate();
   axiosInstance({
     method: 'get',
     baseURL: 'https://review-api.udacity.com/api/v1',
@@ -82,6 +83,7 @@ export function getIncome(axiosInstance) {
       });
       chrome.storage.local.set({ dailyIncome: (dailyIncome).toFixed(2) });
       chrome.storage.local.set({ monthlyIncome: (monthlyIncome).toFixed(2) });
+	  chrome.storage.local.set({ dailyMean: (monthlyIncome/dateStart).toFixed(2) });
     });
 }
 

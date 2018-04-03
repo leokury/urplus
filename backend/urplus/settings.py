@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'remarks.apps.RemarksConfig',
+	'django_extensions',
 ]
 
 MIDDLEWARE = [

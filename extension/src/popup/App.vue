@@ -3,6 +3,7 @@
     <h3>Income</h3>
     <p><strong>Today:</strong> ${{ dailyIncome }}</p>
     <p><strong>This month:</strong> ${{ monthlyIncome }}</p>
+	<p><strong>Daily mean:</strong> ${{ dailyMean }}</p>
     <hr>
     <h3>First Active Review</h3>
     <div v-if="activeReview">
@@ -25,6 +26,7 @@ export default {
     activeReview: null,
     dailyIncome: 0,
     monthlyIncome: 0,
+	dailyMean: 0
   }),
   methods: {
     load() {
@@ -39,6 +41,11 @@ export default {
       chrome.storage.local.get('dailyIncome', (data) => {
         if ('dailyIncome' in data) {
           this.dailyIncome = data.dailyIncome;
+        }
+      });
+	  chrome.storage.local.get('dailyMean', (data) => {
+        if ('dailyMean' in data) {
+          this.dailyMean = data.dailyMean;
         }
       });
       chrome.storage.local.get('monthlyIncome', (data) => {
