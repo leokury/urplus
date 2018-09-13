@@ -70,7 +70,7 @@ export function getIncome(axiosInstance) {
   axiosInstance({
     method: 'get',
     baseURL: 'https://review-api.udacity.com/api/v1',
-    url: `/me/submissions/completed.json?start_date=${monthStart.toISOString().slice(0, 10)}`,
+    url: `/me/submissions/completed.json?limit=500&start_date=${monthStart.toISOString().slice(0, 10)}`,
   })
     .then((response) => {
       let dailyIncome = 0;
