@@ -6,14 +6,14 @@
 	<p><strong>Daily mean:</strong> ${{ dailyMean }}</p>
     <hr>
     <h3>First Active Review</h3>
-    <div v-if="activeReview">
-      <p><strong>Project name:</strong> {{ activeReview.project.name }}</p>
-      <p><strong>Submission ID:</strong> {{ activeReview.id }}</p>
-      <p><strong>Assigned at:</strong> {{ (new Date(activeReview.assigned_at)).toLocaleTimeString() }}</p>
-      <p><strong>Price:</strong> ${{ activeReview.price }}</p>
-      <p><a :href="`https://review.udacity.com/#!/submissions/${activeReview.id}`" target="_blank">Resume review</a></p>
+    <div v-for="review in allReviews">
+      <p><strong>Project name:</strong> {{ review.project.name }}</p>
+      <p><strong>Submission ID:</strong> {{ review.id }}</p>
+      <p><strong>Assigned at:</strong> {{ (new Date(review.assigned_at)).toLocaleTimeString() }}</p>
+      <p><strong>Price:</strong> ${{ review.price }}</p>
+      <p><a :href="`https://review.udacity.com/#!/submissions/${review.id}`" target="_blank">Resume review</a></p>
     </div>
-    <div v-else>
+    <div v-if="!activeReview">
       <p>No currently assigned reviews.</p>
     </div>
   </div>
@@ -58,6 +58,12 @@ export default {
           this.activeReview = data.activeReview;
         }
       });
+	  chrome.storage.local.get('allReviews', (data) => {
+        if ('allReviews' in data) {
+          this.allReviews = data.allReviews;
+        }
+      });
+	  
       setTimeout(this.updatePopup, 100);
     },
   },

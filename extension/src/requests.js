@@ -101,6 +101,7 @@ export function getActiveReview(axiosInstance) {
       }
       const activeReview = response.data[0];
       chrome.storage.local.set({ activeReview });
+	  chrome.storage.local.set({ allReviews: response.data });
       chrome.browserAction.setBadgeText({ text: String(response.data.length) });
     });
 }
